@@ -86,17 +86,14 @@ const Dashboard = () => {
 
   useEffect(() => {
     const intervalo = setInterval(() => {
-      if (tiempoTranscurrido < 600) { // 10 minutos = 600 segundos
-        const nuevosDatos = generarDatosAleatorios();
-        setInputData(nuevosDatos);
-        const nuevoMejorMetodo = evaluarMetodos(nuevosDatos);
-        setHistorialDatos(prev => [...prev, { ...nuevosDatos, tiempo: tiempoTranscurrido }]);
-        setHistorialRecomendaciones(prev => [...prev, { metodo: nuevoMejorMetodo, tiempo: tiempoTranscurrido }]);
-        setTiempoTranscurrido(prev => prev + 5);
-      } else {
-        clearInterval(intervalo);
-      }
+      const nuevosDatos = generarDatosAleatorios();
+      setInputData(nuevosDatos);
+      const nuevoMejorMetodo = evaluarMetodos(nuevosDatos);
+      setHistorialDatos(prev => [...prev, { ...nuevosDatos, tiempo: tiempoTranscurrido }]);
+      setHistorialRecomendaciones(prev => [...prev, { metodo: nuevoMejorMetodo, tiempo: tiempoTranscurrido }]);
+      setTiempoTranscurrido(prev => prev + 5);
     }, 5000);
+  
 
     return () => clearInterval(intervalo);
   }, [tiempoTranscurrido, mejorMetodo]);
